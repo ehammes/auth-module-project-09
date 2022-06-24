@@ -19,12 +19,12 @@ const Customers = customerSchema(sequelize, DataTypes);
 // Reviews
 const Reviews = reviewSchema(sequelize, DataTypes);
 
-// Create associations 
+// Create associations
 Customers.hasMany(Reviews, {foreignKey: 'customerId', sourceKey: 'id'});
 Reviews.belongsTo(Customers, {foreignKey: 'customerId', targetKey: 'id'});
 
 module.exports = {
   sequelize,
-  customers: Customers,
-  reviews: Reviews,
+  Customers,
+  Reviews,
 };
