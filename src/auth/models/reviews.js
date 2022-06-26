@@ -4,7 +4,7 @@
 module.exports = (sequelize, DataTypes) => {
   return sequelize.define('reviews', {
     date: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     restaurantName: {
