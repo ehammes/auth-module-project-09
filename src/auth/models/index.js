@@ -11,7 +11,14 @@ const DATABASE_URL = process.env.NODE_ENV === 'test'
   : process.env.DATABASE_URL || 'postgres://localhost:5432/auth-module';
 
 // Connection to the Database
-const sequelize = new Sequelize(DATABASE_URL);
+const sequelize = new Sequelize(DATABASE_URL, {
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  },
+});
 
 // Customers
 const Customers = customerSchema(sequelize, DataTypes);
