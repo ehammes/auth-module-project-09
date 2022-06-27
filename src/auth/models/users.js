@@ -24,7 +24,7 @@ const userModel = (sequelize, DataTypes) => {
     token: {
       type: DataTypes.VIRTUAL,
       get() {
-        let token = jwt.sign({ username: this.username }, SECRET);
+        let token = jwt.sign({ username: this.username }, SECRET, { expiresIn: '9000000' });
         return token;
       },
     },

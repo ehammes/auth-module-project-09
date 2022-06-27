@@ -70,6 +70,7 @@ const review = {
 // tests pass when the associations from models/index.js line 22-23 commented out
 describe('Testing review routes', () => {
     test('Create review', async () => {
+        await mockRequest.post('/customer').send(customer);
         const response = await mockRequest.post('/review').send(review);
 
         expect(response.status).toEqual(200);
