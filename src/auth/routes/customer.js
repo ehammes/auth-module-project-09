@@ -1,12 +1,11 @@
 'use strict';
 
 const express = require('express');
-const { Customers } = require('../models/index');
+const { Customers } = require('../models');
 const router = express.Router();
 
-router.post('/customer', async(request, response) => {
+router.post('/customer', async (request, response) => {
     const customer = request.body;
-    console.log(customer);
     try {
         const newCustomer = await Customers.create(customer);
         response.status(200).send(newCustomer);
@@ -15,17 +14,17 @@ router.post('/customer', async(request, response) => {
     }
 });
 
-router.get('/customer/:id', async(request, response) => {
+router.get('/customer/:id', async (request, response) => {
     const id = request.params.id;
     try {
-        const selectedCustomer = await Customers.findOne({where: {id}});
+        const selectedCustomer = await Customers.findOne({ where: { id } });
         response.status(200).send(selectedCustomer);
     } catch (error) {
         response.status(404).send(`Could not find the customer with id of ${id}`);
     }
 });
 
-router.get('/customer', async(request, response) => {
+router.get('/customer', async (request, response) => {
     try {
         const allCustomers = await Customers.findAll({});
         response.status(200).send(allCustomers);
@@ -34,11 +33,11 @@ router.get('/customer', async(request, response) => {
     }
 });
 
-router.put('/customer/:id', async(request, response) => {
+router.put('/customer/:id', async (request, response) => {
     const id = request.params.id;
     const updatedCustomer = request.body;
     try {
-        const selectedCustomer = await Customers.findOne({where: {id}});
+        const selectedCustomer = await Customers.findOne({ where: { id } });
         await selectedCustomer.update(updatedCustomer);
         await selectedCustomer.save();
         response.status(200).send(selectedCustomer);
@@ -47,10 +46,10 @@ router.put('/customer/:id', async(request, response) => {
     }
 });
 
-router.delete('/customer/:id', async(request, response) => {
+router.delete('/customer/:id', async (request, response) => {
     const id = request.params.id;
     try {
-        const customerToDelete = await Customers.findOne({where: {id}});
+        const customerToDelete = await Customers.findOne({ where: { id } });
         await customerToDelete.destroy();
         response.status(200).send({});
     } catch (error) {

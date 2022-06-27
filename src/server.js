@@ -6,6 +6,8 @@ const notFoundHandler = require('./middleware/404');
 const internalError = require('./middleware/500');
 const customerRoute = require('./auth/routes/customer');
 const reviewRoute = require('./auth/routes/reviews');
+const authRoutes = require('./auth/routes/users');
+
 require('dotenv').config();
 
 
@@ -14,6 +16,8 @@ const PORT = process.env.PORT || 3002;
 app.use(express.json());
 app.use(customerRoute);
 app.use(reviewRoute);
+app.use(authRoutes);
+
 app.use('*', notFoundHandler);
 app.use(internalError);
 
