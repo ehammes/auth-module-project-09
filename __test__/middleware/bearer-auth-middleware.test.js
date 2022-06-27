@@ -1,6 +1,6 @@
 'use strict';
 
-const bearer = require('../../src/auth/middleware/bearer');
+const bearerAuth = require('../../src/auth/middleware/bearer.js');
 const { sequelize, Users } = require('../../src/auth/models/index');
 const jwt = require('jsonwebtoken');
 
@@ -23,10 +23,12 @@ afterAll(async () => {
 });
 
 describe('Test Auth Middleware', () => {
+
   const req = {};
   const res = {
     status: jest.fn(() => res),
     send: jest.fn(() => res),
+    json: jest.fn(() => res),
   };
   const next = jest.fn();
 
@@ -39,24 +41,10 @@ describe('Test Auth Middleware', () => {
         authorization: `Bearer badtoken`,
       };
 
-      return bearer(req, res, next)
+      return bearerAuth(req, res, next)
         .then(() => {
           expect(next).not.toHaveBeenCalled();
           expect(res.status).toHaveBeenCalledWith(403);
-        });
-    });
-
-    it('valid user login based on using the correct token', () => {
-      const user = { username: 'jennifer' };
-      const token = jwt.sign(user, SECRET);
-
-      req.headers = {
-        authorization: `Bearer ${token}`,
-      };
-
-      return bearer(req, res, next)
-        .then(() => {
-          expect(next).toHaveBeenCalledWith();
         });
     });
 
