@@ -15,7 +15,6 @@ const sequelize = new Sequelize(DATABASE_URL);
 // Customers
 const Customers = customerSchema(sequelize, DataTypes);
 
-
 // Reviews
 const Reviews = reviewSchema(sequelize, DataTypes);
 
